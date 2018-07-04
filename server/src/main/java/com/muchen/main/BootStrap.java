@@ -1,7 +1,15 @@
 package com.muchen.main;
 
-import org.apache.curator.framework.CuratorFramework;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.muchen.common.register.RegistryFactory;
+import com.muchen.server.annotation.ExportService;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * 框架的引导器。
@@ -14,13 +22,37 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 的方式，如果有节点提供的服务连续3次不可用，则
  * 熔断。
  */
-public class BootStrap {
+@Service
+public class BootStrap implements ApplicationContextAware, InitializingBean {
 
-    @Autowired
-    private CuratorFramework client;
-    private void init(){
-        //服务注册。
+    private ApplicationContext ctx;
 
+    @Value("${registry.connectString:127.0.0.1:2181}")
+    private String connectString;
+
+    @Value("${registry.type:zookeeper}")
+    private String registryType;
+
+    @Value("${registry.namespace:/muchen}")
+    private String nameSpace;
+
+    @Value("${registry.sessiontimeout:3000}")
+    private int sessionTimeOut;
+
+    @Value("${registry.retrytimes:3}")
+    private int retryTime;
+
+    private void init() {
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.ctx = ctx;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        //获取所有服务
+        Map<String, Object> services = ctx.getBeansWithAnnotation(ExportService.class);
+        //根据配置组装注册中心中心
 
     }
 }
