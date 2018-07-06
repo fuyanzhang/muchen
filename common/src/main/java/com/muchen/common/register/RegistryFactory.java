@@ -1,7 +1,6 @@
 package com.muchen.common.register;
 
 import com.muchen.common.domain.RegistryInfo;
-import com.muchen.common.domain.ServiceInfo;
 import com.muchen.common.zk.ZkRegistryServiceImpl;
 
 /**
@@ -22,6 +21,17 @@ public enum RegistryFactory {
      */
     public RegistryService createRegistry(RegistryInfo registryInfo) {
 
-        return new ZkRegistryServiceImpl(registryInfo);
+        RegistryService registryService = null;
+        switch (registryInfo.getType()) {
+            case ZOOKEEPER:
+                registryService = new ZkRegistryServiceImpl(registryInfo);
+                break;
+            case ETCD:
+            case CONSUL:
+            case EUREKA:
+                break;
+
+        }
+        return registryService;
     }
 }

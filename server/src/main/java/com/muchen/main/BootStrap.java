@@ -1,13 +1,17 @@
 package com.muchen.main;
 
+import com.muchen.common.domain.RegistryInfo;
 import com.muchen.common.register.RegistryFactory;
+import com.muchen.common.register.RegistryService;
 import com.muchen.server.annotation.ExportService;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Map;
 
@@ -53,6 +57,20 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
         //获取所有服务
         Map<String, Object> services = ctx.getBeansWithAnnotation(ExportService.class);
         //根据配置组装注册中心中心
+        RegistryService registryService = RegistryFactory.REGISTRY_FACTORY.createRegistry(buildRegistry());
+        exportService(services, registryService);
+    }
 
+    private RegistryInfo buildRegistry() {
+        return new RegistryInfo.RegistryBuilder(connectString).nameSpace(nameSpace).retryTimes(retryTime).type(registryType).sessionTimeOut(sessionTimeOut).build();
+    }
+
+    private void exportService(Map<String, Object> services, RegistryService registryService) {
+
+        if (MapUtils.isNotEmpty(services)){
+            services.forEach((k,v)->{
+
+            });
+        }
     }
 }
