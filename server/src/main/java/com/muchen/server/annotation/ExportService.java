@@ -15,6 +15,28 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Service
 public @interface ExportService {
+    /**
+     * bean id
+     * @return
+     */
+    String value() default "";
+
+    /**
+     * 服务名称
+     * @return
+     */
     String name() default "";
+
+    /**
+     * 是否限流
+     * @return
+     */
     boolean rateLimiter() default false;
+
+    /**
+     * 服务分组
+     * @return
+     */
+    String group() default "";
+
 }
