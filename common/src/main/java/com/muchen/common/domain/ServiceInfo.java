@@ -35,4 +35,5 @@ public class ServiceInfo implements Serializable {
      */
     private RegistryInfo registryInfo;
 
+
 }

@@ -1,4 +1,4 @@
-package com.muchen.server.test;
+package com.muchen.test;
 
 import com.muchen.server.annotation.ExportService;
 
@@ -8,7 +8,7 @@ import com.muchen.server.annotation.ExportService;
  * Description:
  * Modified By：
  **/
-@ExportService("test1")
+@ExportService("test2")
 public class TestAnnotation {
     public void test(){
         System.out.println("hello world...");

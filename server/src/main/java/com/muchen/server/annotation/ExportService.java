@@ -11,21 +11,15 @@ import java.lang.annotation.Target;
  * 服务发布注解
  * 将此注解放到类上，则认为需要发布该服务为远程接口
  */
-@Target(ElementType.ANNOTATION_TYPE.TYPE)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Service
 public @interface ExportService {
     /**
-     * bean id
+     * bean id 服务名称
      * @return
      */
-    String value() default "";
-
-    /**
-     * 服务名称
-     * @return
-     */
-    String name() default "";
+    String value();
 
     /**
      * 是否限流

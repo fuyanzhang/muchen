@@ -4,13 +4,11 @@ import com.muchen.server.annotation.ExportService;
 
 /**
  * Author:yanzhang.fu
- * Date:2018/7/5
+ * Date:2018/7/6
  * Description:
  * Modified By：
  **/
-@ExportService("test1")
-public class TestAnnotation {
-    public void test(){
-        System.out.println("hello world...");
-    }
+@ExportService("test3")
+public interface TestInteface {
+    public void sayHi();
 }

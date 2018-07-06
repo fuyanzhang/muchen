@@ -1,6 +1,7 @@
 package com.muchen.main;
 
 import com.muchen.common.domain.RegistryInfo;
+import com.muchen.common.domain.ServiceInfo;
 import com.muchen.common.register.RegistryFactory;
 import com.muchen.common.register.RegistryService;
 import com.muchen.server.annotation.ExportService;
@@ -12,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -37,7 +39,7 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
     @Value("${registry.type:zookeeper}")
     private String registryType;
 
-    @Value("${registry.namespace:/muchen}")
+    @Value("${registry.namespace:muchen}")
     private String nameSpace;
 
     @Value("${registry.sessiontimeout:3000}")
@@ -49,10 +51,12 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
     private void init() {
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.ctx = ctx;
+        this.ctx = applicationContext;
     }
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         //获取所有服务
         Map<String, Object> services = ctx.getBeansWithAnnotation(ExportService.class);
@@ -67,10 +71,22 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
 
     private void exportService(Map<String, Object> services, RegistryService registryService) {
 
-        if (MapUtils.isNotEmpty(services)){
-            services.forEach((k,v)->{
-
+        if (MapUtils.isNotEmpty(services)) {
+            services.forEach((k, v) -> {
+                ExportService exportService = v.getClass().getAnnotation(ExportService.class);
+                ServiceInfo info = buildExportService(exportService);
+                registryService.register(info);
             });
         }
     }
+
+
+    private ServiceInfo buildExportService(ExportService exportService) {
+        ServiceInfo info = new ServiceInfo();
+        info.setGroup(exportService.group());
+        info.setIsRateLimit(exportService.rateLimiter());
+        info.setServiceName(exportService.value());
+        return info;
+    }
+
 }
