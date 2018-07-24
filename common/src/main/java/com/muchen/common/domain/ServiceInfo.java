@@ -35,5 +35,10 @@ public class ServiceInfo implements Serializable {
      */
     private RegistryInfo registryInfo;
 
+    /**
+     *  是否需要更新，默认false
+     */
+    private Boolean isOverwrite = false;
+
 
 }

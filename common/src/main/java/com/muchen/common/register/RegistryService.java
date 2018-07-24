@@ -2,6 +2,7 @@ package com.muchen.common.register;
 
 import com.muchen.common.domain.ServiceInfo;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface RegistryService {
      * 注册服务
      * @param serviceInfo
      */
-    void register(ServiceInfo serviceInfo);
+    void register(ServiceInfo serviceInfo) throws UnsupportedEncodingException, Exception;
 
     /**
      * 下线服务
@@ -29,5 +30,5 @@ public interface RegistryService {
      * @param serviceInfo
      * @return
      */
-    List<ServiceInfo> lookup(ServiceInfo serviceInfo);
+    List<ServiceInfo> lookup(ServiceInfo serviceInfo) throws Exception;
 }

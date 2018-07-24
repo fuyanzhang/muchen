@@ -5,6 +5,7 @@ import com.muchen.common.domain.ServiceInfo;
 import com.muchen.common.register.RegistryFactory;
 import com.muchen.common.register.RegistryService;
 import com.muchen.server.annotation.ExportService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -28,6 +29,7 @@ import java.util.Map;
  * 的方式，如果有节点提供的服务连续3次不可用，则
  * 熔断。
  */
+@Slf4j
 @Service
 public class BootStrap implements ApplicationContextAware, InitializingBean {
 
@@ -69,13 +71,17 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
         return new RegistryInfo.RegistryBuilder(connectString).nameSpace(nameSpace).retryTimes(retryTime).type(registryType).sessionTimeOut(sessionTimeOut).build();
     }
 
-    private void exportService(Map<String, Object> services, RegistryService registryService) {
+    private void exportService(Map<String, Object> services, RegistryService registryService) throws Exception {
 
         if (MapUtils.isNotEmpty(services)) {
             services.forEach((k, v) -> {
                 ExportService exportService = v.getClass().getAnnotation(ExportService.class);
                 ServiceInfo info = buildExportService(exportService);
-                registryService.register(info);
+                try {
+                    registryService.register(info);
+                } catch (Exception e) {
+                    log.error("register failed.",e);
+                }
             });
         }
     }
