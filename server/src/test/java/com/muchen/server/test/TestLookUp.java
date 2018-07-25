@@ -6,6 +6,8 @@ import com.muchen.common.register.RegistryFactory;
 import com.muchen.common.register.RegistryService;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * Author:yanzhang.fu
  * Date:2018/7/23
@@ -20,7 +22,10 @@ public class TestLookUp {
         RegistryService registryService = RegistryFactory.REGISTRY_FACTORY.createRegistry(buildRegistry());
         ServiceInfo serviceInfo = new ServiceInfo();
         serviceInfo.setServiceName("test1");
-        registryService.lookup(serviceInfo);
+        List<ServiceInfo> infos = registryService.lookup(serviceInfo);
+        if (infos.size()>0){
+            System.out.println(infos.get(0));
+        }
     }
 
 

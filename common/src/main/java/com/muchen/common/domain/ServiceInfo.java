@@ -40,5 +40,10 @@ public class ServiceInfo implements Serializable {
      */
     private Boolean isOverwrite = false;
 
+    /**
+     * 服务所在的IP
+     */
+    private String ip;
+
 
 }

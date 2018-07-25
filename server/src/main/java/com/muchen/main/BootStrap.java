@@ -65,6 +65,8 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
         //根据配置组装注册中心中心
         RegistryService registryService = RegistryFactory.REGISTRY_FACTORY.createRegistry(buildRegistry());
         exportService(services, registryService);
+        //启动服务端口。
+        startService();
     }
 
     private RegistryInfo buildRegistry() {
@@ -95,4 +97,9 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
         return info;
     }
 
+
+    //netty
+    private void startService(){
+
+    }
 }

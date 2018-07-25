@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Map;
 public class TestAnnotationMain {
 
     @Test
-    public void test1(){
+    public void test1() throws IOException {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:META-INF/spring/test-spring-server.xml");
 
         Map<String,Object> map = ctx.getBeansWithAnnotation(ExportService.class);
@@ -30,5 +31,6 @@ public class TestAnnotationMain {
 
             System.out.println(v.getClass().getInterfaces().length);
         });
+        System.in.read();
     }
 }
