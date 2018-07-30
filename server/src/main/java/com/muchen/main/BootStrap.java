@@ -100,6 +100,7 @@ public class BootStrap implements ApplicationContextAware, InitializingBean {
 
     //netty
     private void startService(){
+        log.info("start to start netty server ...");
 
     }
 }

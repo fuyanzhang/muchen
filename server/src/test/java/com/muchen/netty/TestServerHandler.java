@@ -1,9 +1,8 @@
 package com.muchen.netty;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.*;
 import io.netty.util.CharsetUtil;
 
 /**
@@ -20,6 +19,15 @@ public class TestServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println(msg);
         ByteBuf bb = (ByteBuf) msg;
         System.out.println(bb.toString(CharsetUtil.UTF_8));
+        ctx.write("i receive message ,send you ack");
+        Channel c = ctx.channel();
+        c.writeAndFlush("i receive message , send you ack");
 //        ctx.fireChannelRead(msg);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+//        ctx.fireChannelReadComplete();
     }
 }

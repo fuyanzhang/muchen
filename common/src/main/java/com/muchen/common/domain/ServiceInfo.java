@@ -45,5 +45,10 @@ public class ServiceInfo implements Serializable {
      */
     private String ip;
 
+    /**
+     * 权重，用于负载均衡。
+     */
+    private Integer weight;
+
 
 }
