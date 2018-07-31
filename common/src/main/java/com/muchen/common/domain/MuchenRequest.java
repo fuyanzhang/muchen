@@ -35,5 +35,10 @@ public class MuchenRequest implements Serializable {
      */
     private String method;
 
+    /**
+     * 扩展的属性及参数
+     */
+    private Map<String,Object> extParam;
+
 
 }
