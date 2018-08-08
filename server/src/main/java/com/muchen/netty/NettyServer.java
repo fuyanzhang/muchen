@@ -30,8 +30,8 @@ public class NettyServer {
         ServerBootstrap b = new ServerBootstrap();
         EventLoopGroup bossGroup = new NioEventLoopGroup(bossThread, new DefaultThreadFactory("NettyServerBoss", true));
         EventLoopGroup workerGroup = new NioEventLoopGroup(wokerThread, new DefaultThreadFactory("NettyServerWorker", true));
-
         b.group(bossGroup,workerGroup);
+
     }
 
 }

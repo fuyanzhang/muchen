@@ -16,6 +16,11 @@ public class MuchenRequest implements Serializable {
     private static final long serialVersionUID = 4867300966372514638L;
 
     /**
+     * 消息id
+     */
+    private String messageId;
+
+    /**
      * 参数
      */
     private Map<String, Object> param;
