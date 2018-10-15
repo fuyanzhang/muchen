@@ -42,6 +42,6 @@ public class NettyClient {
 
     }
     public static void main(String[] args) throws InterruptedException {
-        new NettyClient("172.16.6.85",1234).start();
+        new NettyClient("10.234.203.111",1234).start();
     }
 }

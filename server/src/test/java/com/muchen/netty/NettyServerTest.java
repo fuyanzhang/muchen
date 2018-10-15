@@ -10,24 +10,15 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.net.InetSocketAddress;
 
-/**
- * Author:yanzhang.fu
- * Date:2018/7/26
- * Description:
- * Modified By：
- **/
-public class NettyServer {
-
+public class NettyServerTest {
 
     private int port;
-
-    public NettyServer(int port) {
-        this.port = port;
+    public static void main(String[] args) throws InterruptedException {
+        new NettyServerTest(1234).start();
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        new NettyServer(1234).start();
-
+    public NettyServerTest(int port){
+        this.port = port;
     }
 
     private void start() throws InterruptedException {
@@ -50,5 +41,4 @@ public class NettyServer {
             group.shutdownGracefully().sync();
         }
     }
-
 }
